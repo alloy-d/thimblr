@@ -267,6 +267,8 @@ module Thimblr
           when 'SearchPage'
             repeat = @searchresults if blocks['SearchPage']
           # Quote Posts
+          when 'Quote'
+            blocks['Quote'] = !constants['Quote'].empty?
           when 'Source'
             blocks['Source'] = !constants['Source'].empty?
           when 'Description'

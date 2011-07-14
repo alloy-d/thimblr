@@ -15,7 +15,7 @@ module Thimblr
   
       data['Title'] = xml.search('tumblelog')[0]['title']
       data['Description'] = xml.search('tumblelog')[0].content
-  
+
       data['Posts'] = []
       xml.search('posts post').each do |xpost|
         post = {
@@ -25,7 +25,7 @@ module Thimblr
           'Timestamp' => xpost['unix-timestamp'].to_i,
           'Tags' => xpost.search('tag').collect{ |tag| tag.content }
         }
-    
+
         post['Type'] = "Text" if post['Type'] == "Regular"
         post['Type'] = "Chat" if post['Type'] == "Conversation"
     
@@ -36,7 +36,7 @@ module Thimblr
         post.store('LinkURL',xpost.search("#{xpost['type']}-link-url")[0].content) rescue nil
 
         post.store('Source',xpost.search("#{xpost['type']}-source")[0].content) rescue nil
-    
+
         case post['Type']
         when "Photo"
           xpost.search('photo-url').each do |photo|
@@ -45,12 +45,15 @@ module Thimblr
         when "Link"
           begin
             post['Name'] = xpost.search("link-text")[0].content
+            post['Description'] = xpost.search("link-description")[0].content
           rescue
           end
         when "Video"
           post['Player'] = xpost.search("video-player")[0].content
         when "Text"
           post['Body'] = xpost.search("regular-body")[0].content
+        when "Quote"
+          post['Quote'] = xpost.search("quote-text")[0].content
         end
     
         data['Posts'].push post
