@@ -80,9 +80,9 @@ module Thimblr
       blocks['NextPage'] = page < constants['TotalPages']
       blocks['Posts'] = true
       blocks['IndexPage'] = true
-      constants['NextPage'] = page + 1
+      constants['NextPage'] = "/thimblr/page/#{page + 1}"
       constants['CurrentPage'] = page
-      constants['PreviousPage'] = page - 1
+      constants['PreviousPage'] = "/thimblr/page/#{page - 1}"
     
       # ffw thru posts array if required
       @posts.seek((page - 1) * @settings['PostsPerPage'].to_i)
