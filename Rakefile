@@ -19,6 +19,7 @@ begin
     gem.add_dependency "launchy"
     gem.add_dependency "nokogiri"
     gem.files = FileList['lib/**/*','themes/*','config/*','views/*','public/**/**/*']
+    gem.executables << 'thimblr'
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
